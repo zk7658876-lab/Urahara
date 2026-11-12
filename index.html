@@ -46,7 +46,7 @@ function generateCode(){
     alert("من فضلك أدخل الرقم كاملًا");
     return;
   }
-  // توليد رمز من 6 أرقام
+  // توليد رمز من 8 أرقام
   myCode = Math.floor(100000 + Math.random()*900000).toString();
   document.getElementById("code").innerText = myCode;
   document.getElementById("codeBox").style.display = "block";
