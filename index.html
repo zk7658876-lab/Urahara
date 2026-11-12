@@ -3,61 +3,161 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Urahara - ربط الطلب</title>
+<title>URAHARA - بوت واتساب</title>
 <style>
 body{margin:0;font-family:Arial;background:#0f0f0f;color:white;text-align:center}
-header{padding:50px 20px;background:linear-gradient(135deg,#ff0055,#7a00ff)}
-input{padding:15px;width:80%;max-width:300px;border-radius:30px;border:0;text-align:center;font-size:18px;margin:10px 0}
-button{background:#ff0055;color:white;border:0;padding:15px 30px;border-radius:30px;font-size:18px;cursor:pointer;width:85%;max-width:330px}
-.box{background:#1c1c1c;margin:20px;padding:25px;border-radius:15px}
-#codeBox{display:none;background:#00c853;padding:20px;border-radius:15px;margin:20px;font-size:22px;font-weight:bold}
-small{color:#ccc}
+header{padding:28px 20px;background:linear-gradient(135deg,#ff0055,#7a00ff)}
+input{padding:15px;width:80%;max-width:300px;border-radius:12px;border:0;text-align:center;font-size:18px;margin:10px 0}
+button{background:#ff0055;color:white;border:0;padding:15px 30px;border-radius:30px;font-size:18px;cursor:pointer;width:85%;max-width:330px;font-weight:bold}
+.box{background:#1c1c1c;margin:20px;padding:20px;border-radius:15px;text-align:right}
+#codeBox{display:none;background:#111;padding:20px;border-radius:15px;margin:20px;border:1px solid #ff0055}
+#code{font-size:38px;letter-spacing:8px;color:#ff0055;font-weight:bold}
+.step{background:#222;padding:12px;border-radius:10px;margin:8px 0;text-align:right}
+/* شكل واتساب */
+.wa-phone{background:#ece5dd;border-radius:20px;padding:12px;margin:20px;color:#111;text-align:right;overflow:hidden}
+.wa-header{background:#075e54;color:white;padding:12px;border-radius:12px 12px 0 0;display:flex;align-items:center;gap:10px}
+.wa-avatar{width:40px;height:40px;background:#ff0055;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+.wa-bubble{background:white;padding:12px;border-radius:10px;margin:10px 0;box-shadow:0 1px 2px rgba(0,0,0,0.2)}
+.wa-list-btn{background:#00a884;color:white;text-align:center;padding:12px;border-radius:8px;font-weight:bold;cursor:pointer;margin-top:10px}
+.wa-section{border-top:1px solid #eee;padding:10px 0}
+.wa-section-title{color:#00a884;font-weight:bold;font-size:14px;margin-bottom:6px}
+.wa-row{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#f8f8f8;border-radius:8px;margin:5px 0;cursor:pointer}
+.wa-row b{color:#111;direction:ltr}
+.wa-row span{color:#666;font-size:13px}
+.wa-row:hover{background:#e8f5f1}
+.detail{display:none;background:#fff;color:#111;padding:10px;border-radius:8px;margin:5px 0;font-size:14px}
+.detail b{color:#ff0055}
 </style>
 </head>
 <body>
 <header>
-<h1>URAHARA 🔥</h1>
-<p>اربط طلبك برمز الاقتران</p>
+<h1>🔥 URAHARA BOT 🔥</h1>
+<p>بوت واتساب - قائمة واتساب</p>
+<p>● متصل الآن | رقم البوت: 212768400748</p>
 </header>
 
 <div class="box">
-<h2>أدخل رقم الهاتف</h2>
-<p>سنمنحك رمزًا لربط طلبك معنا</p>
-<input type="tel" id="phone" placeholder="06 XX XX XX XX">
+<h2>🔗 ربط بوت أوراهارا برقمك</h2>
+<p>أدخل رقم واتساب الخاص بك للحصول على رمز الاقتران</p>
+<input type="tel" id="phone" placeholder="0768400748">
 <br>
 <button onclick="generateCode()">طلب رمز الاقتران</button>
-<small><br>الرمز خاص بمتجر Urahara فقط</small>
 </div>
 
 <div id="codeBox">
-رمز الاقتران الخاص بك هو:<br>
-<span id="code" style="font-size:35px;letter-spacing:5px">----</span>
+<p>رمز الاقتران الخاص بك هو:</p>
+<div id="code">--------</div>
+<p id="timer" style="color:#ffcc00">ينتهي بعد: 60 ثانية</p>
+<div class="step"><b>أولًا:</b> افتح واتساب</div>
+<div class="step"><b>ثانيًا:</b> الأجهزة المرتبطة</div>
+<div class="step"><b>ثالثًا:</b> ربط برقم الهاتف</div>
+<div class="step"><b>رابعًا:</b> أدخل الرمز: <b id="code2" style="color:#ff0055"></b></div>
 <br>
-<small style="color:white">أرسل هذا الرمز إلينا عبر واتساب لتأكيد الطلب</small>
+<button onclick="sendWhatsApp()">تأكيد الربط عبر واتساب</button>
 <br><br>
-<button style="background:white;color:#ff0055" onclick="sendWhatsApp()">إرسال الرمز عبر واتساب</button>
+<button style="background:#333" onclick="showMenu()">عرض قائمة واتساب</button>
+</div>
+
+<!-- قائمة واتساب URAHARA -->
+<div id="menuBox" style="display:none">
+<div class="wa-phone">
+<div class="wa-header">
+<div class="wa-avatar">🔥</div>
+<div><b>URAHARA BOT</b><br><small style="color:#d4f8e8">متصل الآن</small></div>
+</div>
+
+<div class="wa-bubble">
+<b>👋 مرحبًا بك في بوت URAHARA</b><br>
+اختر قسمًا من القائمة بالأسفل، واضغط عليه لعرض الأوامر:
+<div class="wa-list-btn" onclick="document.getElementById('waList').style.display='block'">📋 عرض قائمة URAHARA</div>
+</div>
+
+<div id="waList" style="display:none">
+<div class="wa-bubble">
+<div class="wa-section">
+<div class="wa-section-title">🔥 URAHARA - أوامر عامة</div>
+<div class="wa-row" onclick="toggleD('d1')"><b>.menu</b><span>القائمة الرئيسية</span></div><div class="detail" id="d1">اكتب <b>.menu</b> لعرض القائمة</div>
+<div class="wa-row" onclick="toggleD('d2')"><b>.alive</b><span>هل البوت شغال؟</span></div><div class="detail" id="d2">اكتب <b>.alive</b> لمعرفة هل البوت شغال</div>
+<div class="wa-row" onclick="toggleD('d3')"><b>.ping</b><span>سرعة البوت</span></div><div class="detail" id="d3">اكتب <b>.ping</b> لقياس سرعة البوت</div>
+<div class="wa-row" onclick="toggleD('d4')"><b>.owner</b><span>التواصل مع المالك</span></div><div class="detail" id="d4">اكتب <b>.owner</b> للتواصل مع المالك 212768400748</div>
+</div>
+
+<div class="wa-section">
+<div class="wa-section-title">⬇️ URAHARA - أوامر التحميل</div>
+<div class="wa-row" onclick="toggleD('d5')"><b>.play</b><span>تحميل أغنية</span></div><div class="detail" id="d5">اكتب <b>.play + اسم الأغنية</b></div>
+<div class="wa-row" onclick="toggleD('d6')"><b>.ytmp3</b><span>تحميل صوت من يوتيوب</span></div><div class="detail" id="d6">اكتب <b>.ytmp3 + الرابط</b></div>
+<div class="wa-row" onclick="toggleD('d7')"><b>.ytmp4</b><span>تحميل فيديو من يوتيوب</span></div><div class="detail" id="d7">اكتب <b>.ytmp4 + الرابط</b></div>
+<div class="wa-row" onclick="toggleD('d8')"><b>.tiktok</b><span>تحميل تيك توك</span></div><div class="detail" id="d8">اكتب <b>.tiktok + الرابط</b></div>
+<div class="wa-row" onclick="toggleD('d9')"><b>.insta</b><span>تحميل انستغرام</span></div><div class="detail" id="d9">اكتب <b>.insta + الرابط</b></div>
+</div>
+
+<div class="wa-section">
+<div class="wa-section-title">🎨 URAHARA - أوامر الملصقات</div>
+<div class="wa-row" onclick="toggleD('d10')"><b>.sticker</b><span>تحويل صورة لملصق</span></div><div class="detail" id="d10">أرسل صورة واكتب <b>.sticker</b></div>
+<div class="wa-row" onclick="toggleD('d11')"><b>.toimg</b><span>تحويل ملصق لصورة</span></div><div class="detail" id="d11">أرسل ملصق واكتب <b>.toimg</b></div>
+<div class="wa-row" onclick="toggleD('d12')"><b>.attp</b><span>نص متحرك</span></div><div class="detail" id="d12">اكتب <b>.attp + النص</b></div>
+</div>
+
+<div class="wa-section">
+<div class="wa-section-title">🛒 URAHARA - أوامر المتجر</div>
+<div class="wa-row" onclick="toggleD('d13')"><b>.order</b><span>طلب منتج</span></div><div class="detail" id="d13">اكتب <b>.order</b> لطلب منتج من أوراهارا</div>
+<div class="wa-row" onclick="toggleD('d14')"><b>.price</b><span>أسعار المنتجات</span></div><div class="detail" id="d14">اكتب <b>.price</b> لمعرفة الأسعار</div>
+<div class="wa-row" onclick="toggleD('d15')"><b>.products</b><span>كل المنتجات</span></div><div class="detail" id="d15">اكتب <b>.products</b> لعرض المنتجات</div>
+<div class="wa-row" onclick="toggleD('d16')"><b>.offer</b><span>العروض</span></div><div class="detail" id="d16">اكتب <b>.offer</b> للعروض</div>
+</div>
+
+<div class="wa-section">
+<div class="wa-section-title">🤖 URAHARA - أوامر الذكاء الاصطناعي</div>
+<div class="wa-row" onclick="toggleD('d17')"><b>.ai</b><span>اسأل الذكاء الاصطناعي</span></div><div class="detail" id="d17">اكتب <b>.ai + سؤالك</b></div>
+<div class="wa-row" onclick="toggleD('d18')"><b>.imagine</b><span>رسم صورة</span></div><div class="detail" id="d18">اكتب <b>.imagine + وصف الصورة</b></div>
+</div>
+
+<div class="wa-section">
+<div class="wa-section-title">👥 URAHARA - أوامر المجموعات</div>
+<div class="wa-row" onclick="toggleD('d19')"><b>.kick</b><span>طرد عضو</span></div><div class="detail" id="d19">اكتب <b>.kick</b> لطرد عضو</div>
+<div class="wa-row" onclick="toggleD('d20')"><b>.tagall</b><span>منشن للجميع</span></div><div class="detail" id="d20">اكتب <b>.tagall</b> لمنشن الجميع</div>
+<div class="wa-row" onclick="toggleD('d21')"><b>.hidetag</b><span>منشن مخفي</span></div><div class="detail" id="d21">اكتب <b>.hidetag</b> لمنشن مخفي</div>
+<div class="wa-row" onclick="toggleD('d22')"><b>.antilink</b><span>منع الروابط</span></div><div class="detail" id="d22">اكتب <b>.antilink</b> لمنع الروابط</div>
+</div>
+
+<div class="wa-section">
+<div class="wa-section-title">🎲 URAHARA - أوامر الترفيه</div>
+<div class="wa-row" onclick="toggleD('d23')"><b>.joke</b><span>نكتة</span></div><div class="detail" id="d23">اكتب <b>.joke</b> لنكتة</div>
+<div class="wa-row" onclick="toggleD('d24')"><b>.meme</b><span>ميمز</span></div><div class="detail" id="d24">اكتب <b>.meme</b> لميمز</div>
+<div class="wa-row" onclick="toggleD('d25')"><b>.quiz</b><span>سؤال وجواب</span></div><div class="detail" id="d25">اكتب <b>.quiz</b> للعبة</div>
+</div>
+
+<div class="wa-section">
+<div class="wa-section-title">👑 URAHARA - أوامر المالك فقط</div>
+<div class="wa-row" onclick="toggleD('d26')"><b>.broadcast</b><span>إرسال للجميع</span></div><div class="detail" id="d26">اكتب <b>.broadcast</b> لإرسال رسالة للجميع</div>
+<div class="wa-row" onclick="toggleD('d27')"><b>.block</b><span>حظر شخص</span></div><div class="detail" id="d27">اكتب <b>.block</b> لحظر شخص</div>
+</div>
+
+</div>
+</div>
 </div>
 
 <script>
-let myCode = "";
+function toggleD(id){ let el=document.getElementById(id); el.style.display = el.style.display==='block'?'none':'block'; }
+let myCode=""; let timeLeft=60; let timerInt;
 function generateCode(){
-  let phone = document.getElementById("phone").value;
-  if(phone.length < 9){
-    alert("من فضلك أدخل الرقم كاملًا");
-    return;
-  }
-  // توليد رمز من 6 أرقام
-  myCode = Math.floor(100000 + Math.random()*900000).toString();
-  document.getElementById("code").innerText = myCode;
-  document.getElementById("codeBox").style.display = "block";
-  window.scrollTo(0, document.body.scrollHeight);
+  let phone=document.getElementById("phone").value;
+  if(phone.length<9){ alert("من فضلك أدخل الرقم كاملًا"); return; }
+  const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; myCode="";
+  for(let i=0;i<8;i++){ myCode+=chars[Math.floor(Math.random()*chars.length)]; }
+  document.getElementById("code").innerText=myCode;
+  document.getElementById("code2").innerText=myCode;
+  document.getElementById("codeBox").style.display="block";
+  window.scrollTo(0,document.body.scrollHeight);
+  clearInterval(timerInt); timeLeft=60;
+  timerInt=setInterval(()=>{ timeLeft--; document.getElementById("timer").innerText="ينتهي بعد: "+timeLeft+" ثانية"; if(timeLeft<=0){ clearInterval(timerInt); document.getElementById("timer").innerText="انتهى الرمز، اطلب رمزًا جديدًا"; } },1000);
 }
 function sendWhatsApp(){
-  let phone = document.getElementById("phone").value;
-  let msg = "مرحبًا Urahara، رمز الاقتران الخاص بي هو: " + myCode + " - رقمي هو: " + phone;
-  // غيّر هذا الرقم برقمك أنت
-  window.open("https://wa.me/212600000000?text=" + encodeURIComponent(msg), "_blank");
+  let phone=document.getElementById("phone").value;
+  let msg="مرحبًا URAHARA، أريد ربط البوت، رمزي هو: "+myCode+" - رقمي هو: "+phone;
+  window.open("https://wa.me/212768400748?text="+encodeURIComponent(msg),"_blank");
 }
+function showMenu(){ document.getElementById("menuBox").style.display="block"; window.scrollTo(0,document.body.scrollHeight); }
 </script>
 </body>
-</html>
+                                                          </html>
