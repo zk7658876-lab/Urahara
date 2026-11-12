@@ -2,25 +2,62 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>Urahara</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urahara - ربط الطلب</title>
 <style>
 body{margin:0;font-family:Arial;background:#0f0f0f;color:white;text-align:center}
-header{padding:60px 20px;background:linear-gradient(135deg,#ff0055,#7a00ff)}
-button{background:#ff0055;color:white;border:0;padding:15px 30px;border-radius:30px;font-size:18px}
-.box{background:#1c1c1c;margin:20px;padding:20px;border-radius:15px}
+header{padding:50px 20px;background:linear-gradient(135deg,#ff0055,#7a00ff)}
+input{padding:15px;width:80%;max-width:300px;border-radius:30px;border:0;text-align:center;font-size:18px;margin:10px 0}
+button{background:#ff0055;color:white;border:0;padding:15px 30px;border-radius:30px;font-size:18px;cursor:pointer;width:85%;max-width:330px}
+.box{background:#1c1c1c;margin:20px;padding:25px;border-radius:15px}
+#codeBox{display:none;background:#00c853;padding:20px;border-radius:15px;margin:20px;font-size:22px;font-weight:bold}
+small{color:#ccc}
 </style>
 </head>
 <body>
 <header>
 <h1>URAHARA 🔥</h1>
-<p>أفضل متجر عندك في المغرب</p>
-<button>تسوق دابا</button>
+<p>اربط طلبك برمز الاقتران</p>
 </header>
+
 <div class="box">
-<h2>علاش تختارنا؟</h2>
-<p>✅ توصيل سريع</p>
-<p>✅ جودة مضمونة</p>
-<p>✅ الدفع عند الاستلام</p>
+<h2>أدخل رقم الهاتف</h2>
+<p>سنمنحك رمزًا لربط طلبك معنا</p>
+<input type="tel" id="phone" placeholder="06 XX XX XX XX">
+<br>
+<button onclick="generateCode()">طلب رمز الاقتران</button>
+<small><br>الرمز خاص بمتجر Urahara فقط</small>
 </div>
+
+<div id="codeBox">
+رمز الاقتران الخاص بك هو:<br>
+<span id="code" style="font-size:35px;letter-spacing:5px">----</span>
+<br>
+<small style="color:white">أرسل هذا الرمز إلينا عبر واتساب لتأكيد الطلب</small>
+<br><br>
+<button style="background:white;color:#ff0055" onclick="sendWhatsApp()">إرسال الرمز عبر واتساب</button>
+</div>
+
+<script>
+let myCode = "";
+function generateCode(){
+  let phone = document.getElementById("phone").value;
+  if(phone.length < 9){
+    alert("من فضلك أدخل الرقم كاملًا");
+    return;
+  }
+  // توليد رمز من 6 أرقام
+  myCode = Math.floor(100000 + Math.random()*900000).toString();
+  document.getElementById("code").innerText = myCode;
+  document.getElementById("codeBox").style.display = "block";
+  window.scrollTo(0, document.body.scrollHeight);
+}
+function sendWhatsApp(){
+  let phone = document.getElementById("phone").value;
+  let msg = "مرحبًا Urahara، رمز الاقتران الخاص بي هو: " + myCode + " - رقمي هو: " + phone;
+  // غيّر هذا الرقم برقمك أنت
+  window.open("https://wa.me/212600000000?text=" + encodeURIComponent(msg), "_blank");
+}
+</script>
 </body>
 </html>
